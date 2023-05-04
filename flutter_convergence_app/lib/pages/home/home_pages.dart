@@ -39,7 +39,7 @@ class _HomePagesState extends State<HomePages>
       params['isIos'] = "1";
     }
 
-    // requstAdvert();
+    requstAdvert();
   }
 
   void requstAdvert() async {

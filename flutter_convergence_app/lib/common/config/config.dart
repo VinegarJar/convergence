@@ -5,7 +5,7 @@ class Config {
   static const USER_INFO = "userInfo";
   static const USER_VIP = "vipLevel";
 
-// 默认账号 13554757224 0000
+// 默认账号 135 54 75 7224 0000
 
   //api请求地址
   static const String baseURL = "https://rhyz.znjf66.com";
@@ -13,8 +13,8 @@ class Config {
   //埋点
   static const String addEventUrl = "/record/event/addEvent";
   // 登录
-  static const String loginUrl = "/rhyzadmin/app/appuser/loginNoRegister";
-  //static const String loginUrl = "/rhyzadmin/app/appuser/loginBySmsCode";
+  // static const String loginUrl = "/rhyzadmin/app/appuser/loginNoRegister";
+  static const String loginUrl = "/rhyzadmin/app/appuser/loginBySmsCode";
 
   static const String appSmsCode = "/rhyzadmin/app/appuser/appSmsCode";
 
