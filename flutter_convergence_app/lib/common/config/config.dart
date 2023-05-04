@@ -5,8 +5,10 @@ class Config {
   static const USER_INFO = "userInfo";
   static const USER_VIP = "vipLevel";
 
+// 默认账号 13554757224 0000
+
   //api请求地址
-  static const String baseURL = "https://rhyzadmin.znjf66.com";
+  static const String baseURL = "https://rhyz.znjf66.com";
 
   //埋点
   static const String addEventUrl = "/record/event/addEvent";

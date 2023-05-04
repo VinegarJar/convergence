@@ -239,8 +239,9 @@ class _LoginHomePageState extends State<LoginHomePage>
       var params = {
         "phoneNum": _phoneNum,
         "smsCode": _smsCode,
-        "channelId": "vivo"
-        // "channelId": "huawei"
+        // "channelId": "vivo"
+        "channelId":null
+
       };
       if (Platform.isAndroid) {
         params['androidVisited'] = "1";
