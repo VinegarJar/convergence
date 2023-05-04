@@ -1,0 +1,42 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+# ios 大小优化设置
+#https://mp.weixin.qq.com/s?__biz=MzA3NzM0NzkxMQ==&mid=2655372272&idx=1&sn=6513887ec421f57a0a614a584b720649&chksm=84e20ed8b39587ce1f52ef90b1345cff313041de4fc0e16e4abc76f3199c778890ea3848fec4&mpshare=1&scene=1&srcid=0531OWQhLc6U5DekiCVauBMz&sharer_sharetime=1624796341174&sharer_shareid=951adc5a242ed23e66be966c1bec21fa&exportkey=AWjxtVero1WZQ%2BgMq6Y1uG4%3D&pass_ticket=veYmGE9QOcxEEem3Vv%2BP2tzQD94%2Fj6FoZV5gNJy9%2F2V1ioLntj5TfzzyxL5fvm7u&wx_header=0#rd
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+##在项目文件android目录下执行命令fastlane uploadFir生成IPA文件,并且会自动上传到Fir,发送到钉钉群通知
+#使用flutter打包命令 flutter build ios --release
+# 应用名称：融合优租 App 友盟AppKey 61a07941e014255fcb8d32ac
+default_platform(:ios)
+
+platform :ios do
+  desc "打包iOS安装包上传到fir"
+  lane :uploadFir do
+    # add actions here: https://docs.fastlane.tools/actions
+    enable_automatic_code_signing(path: "Runner.xcodeproj")
+    gym(
+     scheme: "Runner", #改为你项目的scheme
+     workspace: "Runner.xcworkspace", #如果项目使用CocoaPods需要加上
+     configuration: "Release",
+     output_directory: "./fastlane",
+     xcargs: "-allowProvisioningUpdates",#证书模式
+     silent: true,# 隐藏不必要信息
+     clean: true,# 打包前是否 clean 项目
+     export_options: { method: "development"}
+   )
+
+   fir_cli api_token:"d2f653948d859d2f06f88eb4d1d39e8f", specify_file_path:"./fastlane/融合优租 .ipa",need_release_id:true,dingtalk_access_token:"3a01c05738abaaeaf5c5e17d80d4cc5870410387126c5a5e2fbf0095a79977ef",dingtalk_custom_message:"钉钉群通知,融合优租 App,更新iOS版本安装包啦!!",dingtalk_at_all:"true"
+   time = Time.new.strftime("%Y年%m月%d日/%H时%M分%S秒")
+   puts "上传ios测试版到Fir成功===== 测试版=============\n"+time+"============================" 
+
+  end
+
+end

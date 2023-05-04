@@ -1,0 +1,94 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+##在项目文件android目录下执行命令fastlane uploadFir生成IPA文件,并且会自动上传到Fir,发送到钉钉群通知
+#使用flutter打包命令 flutter build apk
+# 安装插件fastlane add_plugin fir_cli  fastlane add_plugin ding_talk_msg_push
+# 下载链接http://d.7short.com/5a1s https://oapi.dingtalk.com/robot/send?access_token=3a01c05738abaaeaf5c5e17d80d4cc5870410387126c5a5e2fbf0095a79977ef
+# 更快的启动速度执行打包命令bundle exec fastlane uploadFir 
+#命令一、flutter build apk --release
+#命令二、flutter build apk --target-platform=android-arm64 --release(打包出的安装包(apk)安装后闪退，那请使用命令二打包)
+
+
+# Uncomment the line if you want fastlane to automatically update itself
+# 安装插件 (bundle exec fastlane add_plugin fir_cli)  (bundle exec fastlane add_plugin ding_talk_msg_push)
+# 执行打包命令 fastlane uploadFir     fastlane uploadFirs
+# 应用名称：App-Android #App Key：61a07a2fe014255fcb8d33bc复制
+
+require 'net/http'
+require 'uri'
+require 'json'
+
+default_platform(:android)
+
+
+platform :android do
+  desc "Fir测试版本ap"
+  time = Time.new.strftime("%Y年%m月%d日%H时%M分")
+  lane :uploadFir do
+    
+    sh("flutter", "build", "apk", "--release")
+    fir_cli api_token:"d2f653948d859d2f06f88eb4d1d39e8f", specify_file_path:"../build/app/outputs/apk/release/app-universal-release.apk",need_release_id:true,dingtalk_access_token:"3a01c05738abaaeaf5c5e17d80d4cc5870410387126c5a5e2fbf0095a79977ef",dingtalk_custom_message:"钉钉群通知,融合优租 App,更新android版本【安装包啦】!!",dingtalk_at_all:"true",dingtalk_at_phones:time
+    puts "============================上传android测试版到Fir成功============================\n" 
+  end
+
+  desc "打包上传到fir_cli"
+  lane :uploadLark do
+    sh("flutter", "build", "apk", "--release")
+    fir_cli api_token:"d2f653948d859d2f06f88eb4d1d39e8f", specify_file_path:"../build/app/outputs/apk/release/app-armeabi-v7a-release.apk",need_release_id:false,dingtalk_access_token:"3a01c05738abaaeaf5c5e17d80d4cc5870410387126c5a5e2fbf0095a79977ef",dingtalk_custom_message:"钉钉群通知,融合优租 App,更新android版本【32位安装包啦】!!",dingtalk_at_all:"false",dingtalk_at_phones:"15268117440",changelog:"DBUG版本"
+    sendLarkTalk()
+  end
+
+  desc "发送消息到飞书"
+  lane :sendLarkTalk do
+  markdown =  {
+      "msg_type": "post",
+      "content": {
+          "post": {
+              "zh_cn": {
+                  "title": "App测试包更新通知",
+                  "content": [
+                      [{
+                          "tag": "text",
+                          "text": "测试包有更新: "
+                      },
+                      {
+                          "tag": "a",
+                          "text": "请点击查看",
+                          "href": "http://d.firim.pro/4wkv"
+                      }
+                      ]
+                  ]
+              }
+          }
+      }
+   }
+
+    larkTalk_url = "https://open.feishu.cn/open-apis/bot/v2/hook/fe90dcfc-0e75-4a2c-a975-2e18b88576ff"
+
+    uri = URI.parse(larkTalk_url)
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+
+    request = Net::HTTP::Post.new(uri.request_uri)
+    request.add_field('Content-Type', 'application/json')
+    request.body = markdown.to_json
+
+    response = https.request(request)
+    puts "------------------------------"
+    puts "Response #{response.code} #{response.message}: #{response.body}"
+
+
+end
+
+end
