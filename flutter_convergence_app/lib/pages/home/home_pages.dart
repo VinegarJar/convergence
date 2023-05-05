@@ -39,7 +39,7 @@ class _HomePagesState extends State<HomePages>
       params['isIos'] = "1";
     }
 
-    requstAdvert();
+    // requstAdvert();
   }
 
   void requstAdvert() async {
@@ -78,7 +78,7 @@ class _HomePagesState extends State<HomePages>
             if ((res.data is List)) {
               list = (res.data as List).cast<Map>();
             }
-            // print('获取首页信息----res----${res.data}');
+            print('获取首页信息----res----${res.data}');
             final List dataSource =
                 list.map((data) => HomeRecommed.fromJson(data)).toList();
             return EasyRefresh(

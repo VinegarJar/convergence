@@ -34,9 +34,8 @@ class _StoreAppState extends State<StoreApp> with HttpErrorListener {
     super.initState();
     if (widget.initPage == RoutesPage.Application) {
       UserDao.initUserInfo().then((res) {
-
-        
         if (res != null && res.result) {
+          BuildContext context = Global.navigatorKey.currentState.overlay.context;
           Provider.of<UserProvider>(context, listen: false)
               .savaUserInfoCache(res.data);
         }

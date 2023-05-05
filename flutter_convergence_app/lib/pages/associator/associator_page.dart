@@ -26,7 +26,7 @@ class _AssociatorPagesState extends State<AssociatorPages> {
   @override
   void initState() {
     super.initState();
-    rquestRecommed();
+    // rquestRecommed();
   }
 
   void rquestRecommed() async {

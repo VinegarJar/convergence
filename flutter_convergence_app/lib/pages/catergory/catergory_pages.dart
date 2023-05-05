@@ -50,8 +50,8 @@ class _CaterGoryPagesState extends State<CaterGoryPages> {
           ),
           centerTitle: true),
       body: FutureBuilder(
-        future: HttpRequestMethod.instance
-            .requestWithMetod(Config.productRecommed, params),
+        // future: HttpRequestMethod.instance
+        //     .requestWithMetod(Config.productRecommed, params),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
             var res = snapshot.data;
