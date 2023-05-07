@@ -8,7 +8,7 @@ class Config {
 // 默认账号 135 54 75 7224 0000
 
   //api请求地址
-  static const String baseURL = "https://rhyz.znjf66.com";
+  static const String baseURL = "https://rhyzapi.rongheyouzu.com";
 
   //埋点
   static const String addEventUrl = "/record/event/addEvent";
@@ -100,41 +100,13 @@ class Config {
   static const String getDialogProdUrl =
       "/wwqbAdmin/app/product/getWindowProductNew";
 
-  /*
-   * 融合优租 隐私
-    http://fqys.xingdiandeng.com/
-    融合优租 告知书
-    http://fqgzs.xingdiandeng.com/
-    融合优租 授权
-    http://fqsq.xingdiandeng.com/
-    融合优租 欢迎
-    http://fqwelcome.xingdiandeng.com/
-    融合优租 官网
-    http://ybfq.xingdiandeng.com/
-   * */
-
-  /*   融合优租协议
-  *   {"title": "隐私政策说明", "path": "http://yinsi.xingdiandeng.com"},
-      {"title": "知情告知书", "path": "http://gaozhishu.xingdiandeng.com/"},
-      {"title": "个人信息授权使用声明", "path": "http://shouquan.xingdiandeng.com/"},
-      {"title": "欢迎您注册和使用融合优租 的服务", "path": "http://welcome.xingdiandeng.com/"},
-  */
 
   /*判断使用那个每次Stages */
-  static const bool Stages = false;
   static Map dict = {
-    "name": Stages ? "融合优租 " : "融合优租",
-    "privacyUrl": Stages
-        ? "http://fqys.xingdiandeng.com"
-        : "http://yinsi.xingdiandeng.com",
-    "agreementUrl": Stages
-        ? "http://fqwelcome.xingdiandeng.com"
-        : "http://welcome.xingdiandeng.com",
-    "authorizationUrl": Stages
-        ? "http://fqsq.xingdiandeng.com"
-        : "http://shouquan.xingdiandeng.com",
-    "noticeUrl": Stages
-        ? "http://fqgzs.xingdiandeng.com"
-        : "http://gaozhishu.xingdiandeng.com"
+    "name": "融合优租" ,
+    "privacyUrl":  "https://yinsi.rongheyouzu.com/",
+    "agreementUrl":"https://welcome.rongheyouzu.com/",
+    "authorizationUrl": "http://shouquan.xingdiandeng.com",
+    "noticeUrl": "http://gaozhishu.xingdiandeng.com"
   };
 }
