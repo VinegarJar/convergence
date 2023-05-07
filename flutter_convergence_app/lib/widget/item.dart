@@ -63,47 +63,36 @@ class Item extends StatelessWidget {
                     margin: EdgeInsets.symmetric(
                         horizontal: ScreenUtil().setHeight(5)),
                     padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setHeight(8)),
+                        horizontal: ScreenUtil().setHeight(12)),
                     decoration: BoxDecoration(
                         color: ThemeColors.homeColor,
                         borderRadius:
                             BorderRadius.circular(ScreenUtil().setWidth(6))),
                     child: Text(
-                      model?.longContent ?? "审核快",
+                      model?.shortContent ?? "审核快",
                       style: TextStyle(
                           fontSize: ScreenUtil().setSp(22),
                           color: ThemeColors.subtitlesColor),
                     ),
                   ),
-                  (model?.shortContent != "")
-                      ? Container(
+               Container(
                           padding: EdgeInsets.symmetric(
-                              horizontal: ScreenUtil().setHeight(8)),
+                              horizontal: ScreenUtil().setHeight(12)),
                           decoration: BoxDecoration(
                               color: ThemeColors.brandColor,
                               borderRadius: BorderRadius.circular(
                                   ScreenUtil().setWidth(6))),
                           child: Text(
-                            model?.shortContent ?? "品牌",
+                         timerContent(
+                          model?.loanPeriodLower, model?.loanPeriodUpper),
                             style: TextStyle(
                                 fontSize: ScreenUtil().setSp(22),
                                 color: ThemeColors.brandtitleColor),
                           ),
                         )
-                      : Container(),
                 ],
               ),
-              Container(
-                width: ScreenUtil().setWidth(150),
-                child: Text(
-                  computedownload(model?.applyNum),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontSize: ScreenUtil().setSp(28),
-                      color: ThemeColors.titleColor),
-                ),
-              ),
+     
             ],
           ),
           Container(
@@ -115,7 +104,7 @@ class Item extends StatelessWidget {
                     child: Text(
                       computeLongContent(model?.loanLower, model?.loanUpper),
                       style: TextStyle(
-                          fontSize: ScreenUtil().setSp(38),
+                          fontSize: ScreenUtil().setSp(32),
                           fontWeight: FontWeight.w500,
                           color: ThemeColors.loanUpperColor),
                     ),
@@ -124,11 +113,10 @@ class Item extends StatelessWidget {
                     margin: EdgeInsets.symmetric(
                         horizontal: ScreenUtil().setHeight(20)),
                     child: Text(
-                      timerContent(
-                          model?.loanPeriodLower, model?.loanPeriodUpper),
+                           computedownload(model?.applyNum),
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          fontSize: ScreenUtil().setSp(38),
+                          fontSize: ScreenUtil().setSp(32),
                           fontWeight: FontWeight.w400,
                           color: Colors.black),
                     ),
@@ -164,7 +152,7 @@ class Item extends StatelessWidget {
                 ],
               )),
           Container(
-            child: Text(model?.loanSpeed ?? "",
+            child: Text("最快"+model?.loanSpeed ?? "",
                 style: TextStyle(
                   fontSize: ScreenUtil().setSp(32),
                   color: ThemeColors.titleColor,
@@ -176,7 +164,7 @@ class Item extends StatelessWidget {
   }
 
   computeLongContent(var minimum, var maximum) {
-    String min;
+    String min = "";
     if (minimum != null && minimum > 10000) {
       min = (minimum / 10000).truncate().toString() + "万";
     } else {
@@ -188,14 +176,14 @@ class Item extends StatelessWidget {
     } else {
       max = maximum?.toString() ?? "0";
     }
-    return (min + "~" + max);
+    return ("日租最低"+ max +"元");
   }
 
   timerContent(var loanPeriodLower, var loanPeriodUpper) {
     if (loanPeriodLower.toString().length > 3) {
       return ("3" + "~" + "12月");
     }
-    return (loanPeriodLower.toString() + "~" + loanPeriodUpper.toString());
+    return ("期限"+loanPeriodLower.toString() + "~" + loanPeriodUpper.toString() + "月");
   }
 
   computedownload(var applyNum) {

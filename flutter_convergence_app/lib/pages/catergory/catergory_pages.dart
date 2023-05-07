@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_cityshop_store/common/config/config.dart';
 import 'package:flutter_cityshop_store/https/httpRequest_method.dart';
+import 'package:flutter_cityshop_store/https/result_data.dart';
 import 'package:flutter_cityshop_store/model/homerecommed.dart';
 import 'package:flutter_cityshop_store/pages/home/home_list_page.dart';
 import 'package:flutter_cityshop_store/utils/themecolors.dart';
@@ -31,6 +32,8 @@ class _CaterGoryPagesState extends State<CaterGoryPages> {
     } else {
       params['isIos'] = "1";
     }
+    params['pageSize'] = 20;
+    params['pageNum'] = 1;
   }
 
   @override
@@ -39,7 +42,7 @@ class _CaterGoryPagesState extends State<CaterGoryPages> {
       backgroundColor: ThemeColors.mainBgColor,
       appBar: AppBar(
           elevation: 0, // 隐藏阴影
-                 automaticallyImplyLeading: false,
+          automaticallyImplyLeading: false,
           backgroundColor: ThemeColors.homemainColor,
           title: Text(
             "租机",
@@ -50,16 +53,13 @@ class _CaterGoryPagesState extends State<CaterGoryPages> {
           ),
           centerTitle: true),
       body: FutureBuilder(
-        // future: HttpRequestMethod.instance
-        //     .requestWithMetod(Config.productRecommed, params),
+        future: HttpRequestMethod.instance
+            .requestWithMetod(Config.productRecommed, params),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
-            var res = snapshot.data;
-            // print('获取CaterGoryPages信息----res----${res.data}');
-            List<Map> list = [];
-            if ((res.data is List)) {
-              list = (res.data as List).cast<Map>();
-            }
+            ResultData result = snapshot.data as ResultData;
+
+            final List list = result.data["list"];
             final List dataSource =
                 list.map((data) => HomeRecommed.fromJson(data)).toList();
             return EasyRefresh(
@@ -83,11 +83,7 @@ class _CaterGoryPagesState extends State<CaterGoryPages> {
                   });
                 },
                 child: ListView(
-                  children: [
-                    // Associator(),
-                    Tage(),
-                    HomeListPage(dataSource: dataSource)
-                  ],
+                  children: [Tage(), HomeListPage(dataSource: dataSource)],
                 ));
           } else {
             return ListView.builder(

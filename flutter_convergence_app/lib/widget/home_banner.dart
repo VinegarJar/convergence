@@ -10,7 +10,7 @@ import 'package:flutter_cityshop_store/widget/onTop_botton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
-import 'package:transparent_image/transparent_image.dart';
+
 
 class HomeBanner extends StatelessWidget {
   final List bannner;
@@ -40,7 +40,7 @@ class HomeBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: ScreenUtil().setHeight(465),
+        height: ScreenUtil().setHeight(365),
         width: ScreenUtil().setWidth(750),
         margin: EdgeInsets.symmetric(
             horizontal: ScreenUtil().setWidth(15),
@@ -51,23 +51,13 @@ class HomeBanner extends StatelessWidget {
             return Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: (model?.bannerImgUrl != null)
-                          ? NetworkImage(model?.bannerImgUrl)
-                          : ExactAssetImage(Utils.getImgPath('placeholderImg')),
+                      image:  ExactAssetImage(Utils.getImgPath('placeholderImg')),
                       fit: BoxFit.fill),
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Column(
                 children: [
                   MessageBar(),
                   _titleWidget(model),
-                  Container(
-                    margin: EdgeInsets.only(top: ScreenUtil().setWidth(10)),
-                    child: Text(model?.longContent ?? "",
-                        style: TextStyle(
-                          fontSize: ScreenUtil().setSp(32),
-                          color: ThemeColors.titleColor,
-                        )),
-                  ),
                   Container(
                     margin: EdgeInsets.symmetric(
                         horizontal: ScreenUtil().setWidth(15),
@@ -78,8 +68,8 @@ class HomeBanner extends StatelessWidget {
                               model?.loanLower, model?.loanUpper)
                           : "",
                       style: TextStyle(
-                          fontSize: ScreenUtil().setSp(60),
-                          fontWeight: FontWeight.w700,
+                          fontSize: ScreenUtil().setSp(32),
+                          fontWeight: FontWeight.w500,
                           color: Colors.black),
                     ),
                   ),
@@ -137,30 +127,13 @@ class HomeBanner extends StatelessWidget {
     } else {
       max = maximum?.toString() ?? "0";
     }
-    return (min + "~" + max);
+    return "期限"+(min + "~" + max)+"个月";
   }
 
   Widget _titleWidget(Advert model) {
-    return model != null
-        ? Container(
+    return Container(
             margin: EdgeInsets.only(top: ScreenUtil().setWidth(50)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                (model?.productUrl != null)
-                    ? Container(
-                        width: ScreenUtil().setWidth(50),
-                        height: ScreenUtil().setHeight(50),
-                        decoration: BoxDecoration(
-                            color: ThemeColors.mainBgColor,
-                            borderRadius: BorderRadius.circular(
-                                ScreenUtil().setWidth(5))),
-                        child: FadeInImage.memoryNetwork(
-                            placeholder: kTransparentImage,
-                            image: model?.productUrl,
-                            fit: BoxFit.fill))
-                    : Container(),
-                Container(
+            child:  Container(
                   margin: EdgeInsets.symmetric(
                       horizontal: ScreenUtil().setHeight(20)),
                   child: Text(
@@ -171,22 +144,7 @@ class HomeBanner extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-                  decoration: BoxDecoration(
-                      color: ThemeColors.homeColor,
-                      borderRadius:
-                          BorderRadius.circular(ScreenUtil().setWidth(5))),
-                  child: Text(
-                    model?.longContent ?? "",
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(23),
-                        color: ThemeColors.subtitlesColor),
-                  ),
-                )
-              ],
-            ),
           )
-        : Container();
+       ;
   }
 }

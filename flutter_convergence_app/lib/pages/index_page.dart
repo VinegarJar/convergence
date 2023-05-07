@@ -20,7 +20,7 @@ class _IndexPagesState extends State<IndexPages> {
     BottomNavigationBarItem(
         icon: Icon(CupertinoIcons.news_solid), label: '租机汇'),
     BottomNavigationBarItem(
-        icon: Icon(CupertinoIcons.profile_circled), label: '会员'),
+        icon: Icon(CupertinoIcons.profile_circled), label: '我的'),
   ];
 
   final List<Widget> tabBody = [

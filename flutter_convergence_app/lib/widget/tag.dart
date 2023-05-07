@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Tage extends StatelessWidget {
   final String titel;
-  const Tage({Key key, this.titel = "推荐产品"}) : super(key: key);
+    final String subtitel;
+  const Tage({Key key, this.titel = "推荐产品", this.subtitel = ""}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +13,16 @@ class Tage extends StatelessWidget {
       margin: EdgeInsets.symmetric(
           horizontal: ScreenUtil().setWidth(20),
           vertical: ScreenUtil().setWidth(10)),
-      child: Text(titel,
+      child:Row(
+        children: [
+           Text(titel,
           style: TextStyle(
-              color: ThemeColors.titleColor, fontSize: ScreenUtil().setSp(38))),
+              color: ThemeColors.jionColor, fontSize: ScreenUtil().setSp(36))),
+          Text(subtitel,
+          style: TextStyle(
+              color: ThemeColors.titleColor, fontSize: ScreenUtil().setSp(32)))     
+        ],
+      ),
     );
   }
 }

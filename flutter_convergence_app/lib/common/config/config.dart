@@ -19,12 +19,13 @@ class Config {
   static const String appSmsCode = "/rhyzadmin/app/appuser/appSmsCode";
 
   //首页贷款列表-特别推荐
-  static const String homeBankUrl = "/rhyzadmin/app/product/getRecommed";
+  static const String homeBankUrl = "/rhyzadmin/app/product/getJqbList";
+
   //首页今日推荐
   static const String todayRecommed =
       "/rhyzadmin/app/product/getNewTodayRecommed";
   //新口子推荐
-  static const String productRecommed = "/rhyzadmin/app/product/getRecommed";
+  static const String productRecommed = "/rhyzadmin/app/product/getJqbList";
   //用户信息
   static const String userInfo = "/rhyzadmin/app/appuser/getAppUserInfo";
   // 实名制信息认证
@@ -106,7 +107,7 @@ class Config {
     "name": "融合优租" ,
     "privacyUrl":  "https://yinsi.rongheyouzu.com/",
     "agreementUrl":"https://welcome.rongheyouzu.com/",
-    "authorizationUrl": "http://shouquan.xingdiandeng.com",
-    "noticeUrl": "http://gaozhishu.xingdiandeng.com"
+    "authorizationUrl": "http://shouquan.rongheyouzu.com/",
+    "noticeUrl": "http://gaozhishu.rongheyouzu.com/"
   };
 }
