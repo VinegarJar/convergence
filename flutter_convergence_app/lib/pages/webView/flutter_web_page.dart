@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
@@ -53,23 +55,25 @@ class _FlutterWebPageState extends State<FlutterWebPage> {
       ),
       body: InAppWebView(
         key: webViewKey,
-        // contextMenu: contextMenu,
         initialUrlRequest: URLRequest(url: Uri.parse(widget.resultUrl)),
-        // initialFile: "assets/index.html",
         initialUserScripts: UnmodifiableListView<UserScript>([]),
         initialOptions: options,
 
         onWebViewCreated: (controller) {
           webViewController = controller;
         },
-        // ignore: deprecated_member_use
+       onLoadStart: (controller, url) async {
+       
+
+       },
+       
         onDownloadStart: (controller, url) async {
           final request = await Permission.storage.request();
           if (request == PermissionStatus.granted) {
             updateAppEx(url.path);
           } else {
             print("授权成功失败-->$request");
-            // ignore: deprecated_member_use
+     
             launch(url.path);
           }
         },

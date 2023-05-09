@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_cityshop_store/common/config/config.dart';
@@ -11,9 +13,9 @@ import 'package:flutter_cityshop_store/router/navigator_utils.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserDao {
-
   static Future<bool> getLoginStatus() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     String isHaveToken = sp.getString(Config.TOKEN_KEY) ?? "";
@@ -24,7 +26,6 @@ class UserDao {
     debugPrint("AccountUtil: 用户登陆状态:true");
     return true;
   }
-
 
   ///初始化用户信息
   static initUserInfo() async {
@@ -97,12 +98,18 @@ class UserDao {
         .requestWithMetod(Config.productUr, params);
     print("跳转产品地址----${res.data}");
     var result = res.data["result"] ?? "";
-    NavigatorUtils.goProductWebView(
-      context,
-      result,
-      "产品详情",
-    );
-    analysisHandle(productId);
+    var url = result;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+
+    // NavigatorUtils.goProductWebView(
+    //   context,
+    //   result,
+    //   "产品详情",
+    // );
   }
 
   static analysisHandle(var productId) async {

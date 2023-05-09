@@ -9,6 +9,7 @@ import 'package:flutter_cityshop_store/pages/home/home_list_page.dart';
 import 'package:flutter_cityshop_store/pages/home/home_title.dart';
 import 'package:flutter_cityshop_store/utils/themecolors.dart';
 import 'package:flutter_cityshop_store/widget/home_banner.dart';
+import 'package:flutter_cityshop_store/widget/messagebar.dart';
 import 'package:flutter_cityshop_store/widget/placeitem.dart';
 import 'package:flutter_cityshop_store/widget/tag.dart';
 
@@ -74,13 +75,13 @@ class _HomePagesState extends State<HomePages>
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
             ResultData result = snapshot.data as ResultData;
-            
             final  List  list = result.data["list"];
             final List dataSource =
                 list.map((data) => HomeRecommed.fromJson(data)).toList(); 
             return  ListView(
                   children: [
                     HomeBanner(bannner: banner, callBack: () {}),
+                    MessageBar(),
                     Tage(titel: "特别推荐",subtitel: " (同时申请五款以上,通过率越高)",),
                     HomeListPage(dataSource: dataSource)
                   ],

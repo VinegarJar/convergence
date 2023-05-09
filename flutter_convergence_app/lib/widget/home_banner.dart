@@ -5,12 +5,10 @@ import 'package:flutter_cityshop_store/provide/user_provider.dart';
 import 'package:flutter_cityshop_store/utils/themecolors.dart';
 import 'package:flutter_cityshop_store/utils/utils.dart';
 import 'package:flutter_cityshop_store/widget/alert.dart';
-import 'package:flutter_cityshop_store/widget/messagebar.dart';
 import 'package:flutter_cityshop_store/widget/onTop_botton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
-
 
 class HomeBanner extends StatelessWidget {
   final List bannner;
@@ -46,33 +44,21 @@ class HomeBanner extends StatelessWidget {
             horizontal: ScreenUtil().setWidth(15),
             vertical: ScreenUtil().setWidth(20)),
         child: Swiper(
+          physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
             Advert model = bannner.length > 0 ? bannner[index] : null;
             return Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image:  ExactAssetImage(Utils.getImgPath('placeholderImg')),
+                      image:
+                          ExactAssetImage(Utils.getImgPath('placeholderImg')),
                       fit: BoxFit.fill),
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MessageBar(),
                   _titleWidget(model),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(15),
-                        vertical: ScreenUtil().setWidth(20)),
-                    child: Text(
-                      model != null
-                          ? computeLongContent(
-                              model?.loanLower, model?.loanUpper)
-                          : "",
-                      style: TextStyle(
-                          fontSize: ScreenUtil().setSp(32),
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                    ),
-                  ),
+                  SizedBox(height: 180.w,), 
                   model != null
                       ? OnTopBotton(
                           callBack: () {
@@ -102,7 +88,7 @@ class HomeBanner extends StatelessWidget {
             );
           },
 
-          itemCount: bannner.length > 0 ? bannner.length : 1,
+          itemCount: 1,
           scrollDirection: Axis.horizontal,
           autoplay: false,
           onIndexChanged: (index) {},
@@ -127,24 +113,74 @@ class HomeBanner extends StatelessWidget {
     } else {
       max = maximum?.toString() ?? "0";
     }
-    return "期限"+(min + "~" + max)+"个月";
+    return "租期长" + (min + "~" + max) + "个月";
   }
 
   Widget _titleWidget(Advert model) {
-    return Container(
-            margin: EdgeInsets.only(top: ScreenUtil().setWidth(50)),
-            child:  Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: ScreenUtil().setHeight(20)),
-                  child: Text(
-                    model?.productName ?? "",
-                    style: TextStyle(
-                      fontSize: ScreenUtil().setSp(38),
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-          )
-       ;
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: ScreenUtil().setWidth(50)),
+          child: Container(
+            margin:
+                EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(20)),
+            child: Text(
+              model?.productName ?? "",
+              style: TextStyle(
+                  fontSize: 34.w,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
+            ),
+          ),
+          
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 50.w),
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
+           decoration: BoxDecoration(
+            border: Border.all(
+                color:Colors.white, width: 0.8),
+            borderRadius: BorderRadius.circular(10.w)),
+          child:Text(
+              "免押金",
+              style: TextStyle(
+                  fontSize: 23.w,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
+            ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 50.w,left: 15.w),
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
+           decoration: BoxDecoration(
+            border: Border.all(
+                color:Colors.white, width: 0.8),
+            borderRadius: BorderRadius.circular(10.w)),
+          child:Text(
+              "审核快",
+              style: TextStyle(
+                  fontSize: 23.w,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
+            ),
+        ),
+               Container(
+          margin: EdgeInsets.only(top: 50.w,left: 15.w),
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
+           decoration: BoxDecoration(
+            border: Border.all(
+                color:Colors.white, width: 0.8),
+            borderRadius: BorderRadius.circular(10.w)),
+          child:Text(
+              computeLongContent(
+                              model?.loanLower, model?.loanUpper),
+              style: TextStyle(
+                  fontSize: 23.w,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
+            ),
+        ),
+      ],
+    );
   }
 }

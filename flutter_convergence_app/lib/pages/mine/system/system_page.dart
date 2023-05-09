@@ -16,24 +16,22 @@ class SystemPage extends StatelessWidget {
 
   List<Widget> _wrapList(context) {
     List tabs = [
-      {"title": "$name隐私政策", "path": Config.dict["privacyUrl"]},
-      {"title": "知情告知书", "path": Config.dict["noticeUrl"]},
-      {"title": "个人信息授权使用声明", "path": Config.dict["authorizationUrl"]},
-      {"title": "欢迎您注册和使用$name的服务", "path": Config.dict["agreementUrl"]},
+      {"title": "用户设置", "index": 0},
+      {"title": "账号与安全", "index": 1},
+      {"title": "关于我们", "index": 2},
     ];
 
     final List listWidget = tabs.map((results) {
       return InkWell(
           onTap: () async {
-            print("跳转链接--${results["path"]}");
-            NavigatorUtils.goWebView(
-                context, results["path"], results["title"]);
+            print("跳转链接--${results["index"]}");
+           
           },
           child: Container(
             color: Colors.white,
             width: ScreenUtil().setWidth(750),
             padding: EdgeInsets.symmetric(vertical: 15),
-            margin: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(1)),
+            margin: EdgeInsets.only(top: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -43,14 +41,14 @@ class SystemPage extends StatelessWidget {
                     results["title"],
                     style: TextStyle(
                         fontSize: ScreenUtil().setSp(32),
+                        color: Color(0xFF303133),
                         fontWeight: FontWeight.w600),
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.only(right: ScreenUtil().setWidth(20)),
-                  child: Icon(Icons.arrow_forward_ios_sharp,
-                      size: ScreenUtil().setSp(38),
-                      color: ThemeColors.titlesColor),
+                  child: Icon(  Icons.arrow_forward_ios,
+                                size: 14,),
                 ),
               ],
             ),
@@ -75,7 +73,7 @@ class SystemPage extends StatelessWidget {
           ),
           centerTitle: true,
           leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: ThemeColors.titlesColor),
+              icon: Icon(Icons.arrow_back_ios, color: ThemeColors.titlesColor,size: 18,),
               onPressed: () {
                 Navigator.pop(context);
               })),

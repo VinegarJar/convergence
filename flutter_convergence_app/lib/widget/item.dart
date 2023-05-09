@@ -7,7 +7,7 @@ import 'package:flutter_cityshop_store/widget/alert.dart';
 import 'package:flutter_cityshop_store/widget/onTop_botton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:transparent_image/transparent_image.dart';
+
 
 class Item extends StatelessWidget {
   final HomeRecommed model;
@@ -35,18 +35,15 @@ class Item extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    width: ScreenUtil().setWidth(50),
-                    height: ScreenUtil().setHeight(50),
+                    width: ScreenUtil().setWidth(60),
+                    height: ScreenUtil().setHeight(45),
                     decoration: BoxDecoration(
                         color: ThemeColors.mainBgColor,
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                            image: NetworkImage(model.productImgUrl)),
                         borderRadius:
                             BorderRadius.circular(ScreenUtil().setWidth(5))),
-                    child: (model?.productImgUrl != null)
-                        ? FadeInImage.memoryNetwork(
-                            placeholder: kTransparentImage,
-                            image: model.productImgUrl,
-                            fit: BoxFit.fill)
-                        : Container(),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(
@@ -54,45 +51,45 @@ class Item extends StatelessWidget {
                     child: Text(
                       model?.productName ?? "",
                       style: TextStyle(
-                        fontSize: ScreenUtil().setSp(32),
+                        fontSize: ScreenUtil().setSp(36),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setHeight(5)),
+                        horizontal: 5),
                     padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setHeight(12)),
+                        horizontal: 5,vertical:4),
                     decoration: BoxDecoration(
                         color: ThemeColors.homeColor,
-                        borderRadius:
-                            BorderRadius.circular(ScreenUtil().setWidth(6))),
+                        borderRadius: BorderRadius.circular(4)),
                     child: Text(
                       model?.shortContent ?? "审核快",
                       style: TextStyle(
-                          fontSize: ScreenUtil().setSp(22),
+                          fontSize: ScreenUtil().setSp(25),
                           color: ThemeColors.subtitlesColor),
                     ),
                   ),
-               Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: ScreenUtil().setHeight(12)),
-                          decoration: BoxDecoration(
-                              color: ThemeColors.brandColor,
-                              borderRadius: BorderRadius.circular(
-                                  ScreenUtil().setWidth(6))),
-                          child: Text(
-                         timerContent(
+                  Container(
+              margin: EdgeInsets.symmetric(
+                        horizontal: 5),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 5,vertical:4),
+                    decoration: BoxDecoration(
+                        color: ThemeColors.brandColor,
+                        borderRadius:
+                            BorderRadius.circular(4)),
+                    child: Text(
+                      timerContent(
                           model?.loanPeriodLower, model?.loanPeriodUpper),
-                            style: TextStyle(
-                                fontSize: ScreenUtil().setSp(22),
-                                color: ThemeColors.brandtitleColor),
-                          ),
-                        )
+                      style: TextStyle(
+                          fontSize: ScreenUtil().setSp(23),
+                          color: ThemeColors.brandtitleColor),
+                    ),
+                  )
                 ],
               ),
-     
             ],
           ),
           Container(
@@ -113,7 +110,7 @@ class Item extends StatelessWidget {
                     margin: EdgeInsets.symmetric(
                         horizontal: ScreenUtil().setHeight(20)),
                     child: Text(
-                           computedownload(model?.applyNum),
+                      computedownload(model?.applyNum),
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: ScreenUtil().setSp(32),
@@ -137,24 +134,24 @@ class Item extends StatelessWidget {
                       alignment: Alignment.center,
                       padding: EdgeInsets.symmetric(
                           horizontal: ScreenUtil().setWidth(35)),
-                      height: ScreenUtil().setWidth(60),
+                      height: 30,
                       decoration: BoxDecoration(
                           color: ThemeColors.homemainColor,
                           borderRadius:
-                              BorderRadius.circular(ScreenUtil().setWidth(28))),
+                              BorderRadius.circular(15)),
                       child: Text("立即申请",
                           style: TextStyle(
-                            fontSize: ScreenUtil().setSp(30),
-                            color: ThemeColors.whiteColor, //35,17,0
+                            fontSize: 13,
+                            color:Color(0xFFFFFFFF), //35,17,0
                           )),
                     ),
                   )
                 ],
               )),
           Container(
-            child: Text("最快"+model?.loanSpeed ?? "",
+            child: Text("最快" + model?.loanSpeed ?? "",
                 style: TextStyle(
-                  fontSize: ScreenUtil().setSp(32),
+                  fontSize: 14,
                   color: ThemeColors.titleColor,
                 )),
           )
@@ -176,14 +173,18 @@ class Item extends StatelessWidget {
     } else {
       max = maximum?.toString() ?? "0";
     }
-    return ("日租最低"+ max +"元");
+    return ("日租最低" + max + "元");
   }
 
   timerContent(var loanPeriodLower, var loanPeriodUpper) {
     if (loanPeriodLower.toString().length > 3) {
       return ("3" + "~" + "12月");
     }
-    return ("期限"+loanPeriodLower.toString() + "~" + loanPeriodUpper.toString() + "月");
+    return ("期限" +
+        loanPeriodLower.toString() +
+        "~" +
+        loanPeriodUpper.toString() +
+        "个月");
   }
 
   computedownload(var applyNum) {
